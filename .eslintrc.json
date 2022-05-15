@@ -13,8 +13,15 @@
         "airbnb-typescript/base"
       ],
       "rules": {
-        "@typescript-eslint/comma-dangle": 0
-      }
+        "@typescript-eslint/comma-dangle": 0,
+        "no-param-reassign": 0,
+        "no-plusplus": "off",
+        "max-classes-per-file": "off",
+        "max-len": ["warn", { "code": 120 }],
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/lines-between-class-members": "off"
+      },
+      "plugins": ["only-warn"]
     }
   ]
 }
