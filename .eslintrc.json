@@ -19,7 +19,8 @@
         "max-classes-per-file": "off",
         "max-len": ["warn", { "code": 120 }],
         "@typescript-eslint/no-use-before-define": "off",
-        "@typescript-eslint/lines-between-class-members": "off"
+        "@typescript-eslint/lines-between-class-members": "off",
+        "no-restricted-syntax": "off"
       },
       "plugins": ["only-warn"]
     }
