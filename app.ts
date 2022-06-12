@@ -19,10 +19,9 @@ type CreateFileResponse = {
 };
 app.post('/files', async (request: Request<any, any, CreateFileRequestBody>, response: Response<CreateFileResponse | ErrorResponse>) => {
   const BASE_PATH = './';
-  const { name } = request.body;
+  let { name } = request.body;
   if (!name) {
-    response.status(403).json({ error: 'File name or content are missing' });
-    return;
+    name = new Date().toISOString();
   }
 
   const filePath = `${BASE_PATH}${name}`;

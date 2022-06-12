@@ -1,4 +1,5 @@
 import request from 'supertest';
+import tk from 'timekeeper';
 import fs from 'fs';
 import axios from 'axios';
 import app from '../app';
@@ -32,13 +33,15 @@ describe('POST /files', () => {
     expect(fs.writeFileSync).toHaveBeenCalled();
   });
 
-  it('responds with an error if file name param is mising', async () => {
+  it('uses current date as a filename if file name param is mising', async () => {
+    tk.freeze('10 Apr 2014 00:12:00 GMT');
     const result = await request(app)
       .post('/files')
-      .send({});
-    expect(result.body).toHaveProperty('error');
-    expect(result.statusCode).toEqual(403);
-    expect(fs.writeFileSync).not.toHaveBeenCalled();
+      .send({ content: 'test' });
+    expect(result.body).toEqual({ name: '2014-04-10T00:12:00.000Z', content: 'test' });
+    expect(result.statusCode).toEqual(200);
+    expect(fs.writeFileSync).toHaveBeenCalled();
+    tk.reset();
   });
 
   it('responds with a file content if the file already exists', async () => {
